@@ -1,6 +1,8 @@
 # sepp
 small size evaluation and prototyping platform - yet another autonomous RC car
 
+![Sepp himself](https://github.com/intence/sepp/blob/master/sepp_small.png)
+
 ## Goals
 * Create a platform to evaluate sensors, sensor fusion approaches and algorithms in a small sized and comparatively cheap prototype
 * Use open source hardware and software to enable contributors and users to clone the prototype
@@ -20,4 +22,4 @@ small size evaluation and prototyping platform - yet another autonomous RC car
 * infrastructure: ethernet shields for arduino, ethernet switch, NiMh accu pack, usb hubs, power bank (to power arduinos an jetson tx1)
 * car body: bumpers, constructed aluminium frame, constructed 3D printed parts, plenty of tape, cable ties, jumper cable and solder :)
 
-
+more to follow...

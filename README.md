@@ -1,6 +1,8 @@
 # sepp
 small size evaluation and prototyping platform - yet another autonomous RC car
 
+See Sepp on a first teleoperation rideout here: https://www.youtube.com/edit?video_id=caKfN4w3eOs
+
 ![Sepp himself](https://github.com/intence/sepp/blob/master/sepp_small.png)
 
 ## Goals

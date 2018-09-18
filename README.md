@@ -50,6 +50,4 @@ As you can see the real autonomous functions have to be implemented. Some work h
 * simple lane depature warning done by computer vision -> can be extended to lane follow function
 * do a "trained drive" on a known parkour: train TensorFlow with data of humans driving the parkour
 
-* but first of all, some tickets have to be added to the project and the code has to be uploaded :)
-
 more to follow...

@@ -1,4 +1,3 @@
-
 // Recipe for SEPP actuator board - arduino code for connecting actuators to SEPP
 // 2018-09-18 by Andreas Lachenschmidt <a.lachenschmidt@web.de>
 //
@@ -165,10 +164,10 @@ void setup()
     nh.spinOnce();
   }
 
+  // read parameters
   if (!nh.getParam("/decided_thrust/thrustReverseMax", &thrustReverseMax))
   {
     thrustReverseMax = THRUST_REVERSE_MAX;
-    ;
     Serial.println("Parameter nicht gelesen");
   }
   Serial.println(thrustReverseMax);

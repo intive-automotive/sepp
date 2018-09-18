@@ -84,14 +84,13 @@ public:
       return;
     }
 
+    //paint some hough lines into the picture (just as an example for now to demonstrate a simple image processing pipeline with preprocessing and image recognition filters!)
     HoughLinesP(cv_ptr->image, lines, houghRho, houghTheta, houghTresshold, houghMinLinLength, houghMaxLineGap);
     for (size_t i = 0; i < lines.size(); i++)
     {
       Vec4i l = lines[i];
       line(cv_ptr->image, Point(l[0], l[1]), Point(l[2], l[3]), Scalar(0, 0, 255), 3, LINE_AA);
     }
-
-    // Output modified video stream
 
     // Output modified video stream
     image_pub_.publish(cv_ptr->toImageMsg());

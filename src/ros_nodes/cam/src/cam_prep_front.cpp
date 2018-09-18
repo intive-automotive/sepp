@@ -86,7 +86,7 @@ public:
       return;
     }
 
-    // image preprocessing
+    // image preprocessing (just as an example for now to demonstrate a simple image processing pipeline with preprocessing and image recognition filters!)
     // convert to grayscale
     cvtColor(cv_ptr->image, videoFrameGray, COLOR_RGBA2GRAY);
     // gaussian blur

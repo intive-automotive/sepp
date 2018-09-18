@@ -31,7 +31,7 @@ See SEPP blink and with new bumpers: https://youtu.be/2P67onShV-0
 * ROS Lunar Loggerhead up and running on jetson tx1
 * simple computer vision pipeline implemented as ROS nodes with openCV
 * ultrasonic sensors are read by sensor board (arduino) and sent to ROS core on jetson by ethernet
-* thrust and steering servos are controlled by actuator board (arduino) over ethnet messages sent by a ROS node on jetson tx1
+* thrust and steering servos are controlled by actuator board (arduino) over ethernet messages sent by a ROS node on jetson tx1
 * ROS can be run in a distributed setup, so ROS nodes on a remote PC can register on the ROS core on sepp´s jetson tx1
   * debugging and logging of ros messages is possible on a remote machine
   * visualizations of the camera streams and input and output signals is possible on a remote machine

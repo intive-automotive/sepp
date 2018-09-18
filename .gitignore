@@ -30,3 +30,9 @@
 *.exe
 *.out
 *.app
+src/ros_nodes/.vscode/c_cpp_properties.json
+src/arduino_recipes/.vscode/settings.json
+src/arduino_recipes/.vscode/c_cpp_properties.json
+src/ros_nodes/.vscode/arduino.json
+.vscode/c_cpp_properties.json
+.vscode/arduino.json

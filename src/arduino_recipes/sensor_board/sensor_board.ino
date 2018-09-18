@@ -1,6 +1,32 @@
-/*
+// Recipe for SEPP sensor board - arduino code for connecting sensors to SEPP
+// 2018-09-18 by Andreas Lachenschmidt <a.lachenschmidt@web.de>
+//
+// Changelog:
+//      2018-09-18 - initial commit
 
- */
+/* ============================================
+SEPP sensor board code is placed under the MIT license
+Copyright (c) 2018 Andreas Lachenschmidt
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.
+===============================================
+*/
 #include <SPI.h> // needed for Arduino versions later than 0018
 #include <Ethernet.h>
 #include "SR04.h"
@@ -172,33 +198,6 @@ float ss5Distance = 0;
 float ss6Distance = 0;
 float ss7Distance = 0;
 float ss8Distance = 0;
-
-// ==============================================================================
-// =========================== Gyro variables =========================
-// ==============================================================================
-
-MPU6050 mpu;
-
-// MPU control/status vars
-bool dmpReady = false;  // set true if DMP init was successful
-uint8_t mpuIntStatus;   // holds actual interrupt status byte from MPU
-uint8_t devStatus;      // return status after each device operation (0 = success, !0 = error)
-uint16_t packetSize;    // expected DMP packet size (default is 42 bytes)
-uint16_t fifoCount;     // count of all bytes currently in FIFO
-uint8_t fifoBuffer[64]; // FIFO storage buffer
-
-// orientation/motion vars
-Quaternion q; // [w, x, y, z]         quaternion container
-
-// ================================================================
-// ===               INTERRUPT DETECTION ROUTINE                ===
-// ================================================================
-
-volatile bool mpuInterrupt = false; // indicates whether MPU interrupt pin has gone high
-void dmpDataReady()
-{
-  mpuInterrupt = true;
-}
 
 void setup()
 {
@@ -412,89 +411,16 @@ void setup()
   t_uss8.transform.rotation.z = 0.0;
   t_uss8.transform.rotation.w = 1;
   t_uss8.header.stamp = nh.now();
-
-  // join I2C bus (I2Cdev library doesn't do this automatically)
-  Wire.begin();
-  TWBR = 24; // 400kHz I2C clock (200kHz if CPU is 8MHz). Comment this line if having compilation difficulties with TWBR.
-
-  // initialize serial communication
-  while (!Serial)
-    ; // wait for Leonardo enumeration, others continue immediately
-
-  // NOTE: 8MHz or slower host processors, like the Teensy @ 3.3v or Ardunio
-  // Pro Mini running at 3.3v, cannot handle this baud rate reliably due to
-  // the baud timing being too misaligned with processor ticks. You must use
-  // 38400 or slower in these cases, or use some kind of external separate
-  // crystal solution for the UART timer.
-
-  // initialize device
-  Serial.println(F("Initializing I2C devices..."));
-  mpu.initialize();
-
-  // verify connection
-  Serial.println(F("Testing device connections..."));
-  Serial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
-
-  // load and configure the DMP
-  Serial.println(F("Initializing DMP..."));
-  devStatus = mpu.dmpInitialize();
-
-  // supply your own gyro offsets here, scaled for min sensitivity
-  mpu.setXGyroOffset(220);
-  mpu.setYGyroOffset(76);
-  mpu.setZGyroOffset(-85);
-  mpu.setZAccelOffset(1788); // 1688 factory default for my test chip
-
-  // make sure it worked (returns 0 if so)
-  if (devStatus == 0)
-  {
-    // turn on the DMP, now that it's ready
-    Serial.println(F("Enabling DMP..."));
-    mpu.setDMPEnabled(true);
-
-    // enable Arduino interrupt detection
-    Serial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
-    attachInterrupt(0, dmpDataReady, RISING);
-    mpuIntStatus = mpu.getIntStatus();
-
-    // set our DMP Ready flag so the main loop() function knows it's okay to use it
-    Serial.println(F("DMP ready! Waiting for first interrupt..."));
-    dmpReady = true;
-
-    // get expected DMP packet size for later comparison
-    packetSize = mpu.dmpGetFIFOPacketSize();
-  }
-  else
-  {
-    // ERROR!
-    // 1 = initial memory load failed
-    // 2 = DMP configuration updates failed
-    // (if it's going to break, usually the code will be 1)
-    Serial.print(F("DMP Initialization failed (code "));
-    Serial.print(devStatus);
-    Serial.println(F(")"));
-  }
 }
 
 void loop()
 {
-
-  // if programming failed, don't try to do anything
-  /*  if (!dmpReady) return;
-   
-  // wait for MPU interrupt or extra packet(s) available
-  while (!mpuInterrupt && fifoCount < packetSize) {
-*/
-  //*******************************************
-  // send
-  //*******************************************
-
   if (millis() - last_time >= period)
   {
     last_time = millis();
     if (nh.connected())
     {
-      //Serial.println("Connected");
+      Serial.print("Do ned her, Depp!");
       t_base_link.transform.rotation.x = 0; //q.x;
       t_base_link.transform.rotation.y = 0; //q.y;
       t_base_link.transform.rotation.z = 0; //q.z;
@@ -594,11 +520,9 @@ void loop()
         uss8_broadcaster.sendTransform(t_uss8);
         break;
       default:
-        Serial.print("Do ned her, Depp!");
+        // nothing to do
         break;
       }
-      //Serial.print("USS number identifier: " );
-      //Serial.println(ssSensorIdentifier);
       if (ssSensorIdentifier < MAX_SSSENSORIDENTIFIER_INDEX)
       {
         ssSensorIdentifier++;
@@ -606,46 +530,13 @@ void loop()
       else
       {
         ssSensorIdentifier = 0;
-        //Serial.println("wieder auf 0");
       }
     }
     else
     {
       Serial.println("Not Connected");
     }
-    //}
   }
-  /*
-  // reset interrupt flag and get INT_STATUS byte
-  mpuInterrupt = false;
-  mpuIntStatus = mpu.getIntStatus();
-
-  // get current FIFO count
-  fifoCount = mpu.getFIFOCount();
-
-  // check for overflow (this should never happen unless our code is too inefficient)
-  if ((mpuIntStatus & 0x10) || fifoCount == 1024) {
-      // reset so we can continue cleanly
-      mpu.resetFIFO();
-      Serial.println(F("FIFO overflow!"));
-
-  // otherwise, check for DMP data ready interrupt (this should happen frequently)
-  } else if (mpuIntStatus & 0x02) {
-      // wait for correct available data length, should be a VERY short wait
-      while (fifoCount < packetSize) fifoCount = mpu.getFIFOCount();
-
-      // read a packet from FIFO
-      mpu.getFIFOBytes(fifoBuffer, packetSize);
-      
-      // track FIFO count here in case there is > 1 packet available
-      // (this lets us immediately read more without waiting for an interrupt)
-      fifoCount -= packetSize;
-
-      // display quaternion values in easy matrix form: w x y z
-      mpu.dmpGetQuaternion(&q, fifoBuffer);
-      //Serial.println("DMP abgefragt");
-  }
-  */
   nh.spinOnce();
   delay(1);
   seqCounter++; //overrun allowed

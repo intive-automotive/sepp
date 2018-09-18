@@ -2,6 +2,7 @@
 small size evaluation and prototyping platform - yet another autonomous RC car
 
 See SEPP on a first teleoperation rideout here: https://youtu.be/caKfN4w3eOs
+
 See SEPP blink and with new bumpers: https://youtu.be/2P67onShV-0
 
 ![Sepp himself](https://github.com/intence/sepp/blob/master/sepp_small.png)

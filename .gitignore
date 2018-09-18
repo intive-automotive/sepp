@@ -36,3 +36,4 @@ src/arduino_recipes/.vscode/c_cpp_properties.json
 src/ros_nodes/.vscode/arduino.json
 .vscode/c_cpp_properties.json
 .vscode/arduino.json
+.vscode/settings.json

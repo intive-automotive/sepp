@@ -5,7 +5,7 @@ See SEPP on a first teleoperation rideout here: https://youtu.be/caKfN4w3eOs
 
 See SEPP blink and with new bumpers: https://youtu.be/2P67onShV-0
 
-![Sepp himself](https://github.com/intence/sepp/blob/master/sepp_small.png)
+![Sepp himself](https://github.com/intence/sepp/blob/master/img/sepp_small.png)
 
 ## Goals
 * Create a platform to evaluate sensors, sensor fusion approaches and algorithms in a small sized and comparatively cheap prototype

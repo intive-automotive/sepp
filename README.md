@@ -5,6 +5,8 @@ See SEPP on a first teleoperation rideout here: https://youtu.be/caKfN4w3eOs
 
 See SEPP blink and with new bumpers: https://youtu.be/2P67onShV-0
 
+Read the SEPP wiki, if you want to see more about architecture and development with SEPP: https://github.com/intence/sepp/wiki
+
 ![Sepp himself](https://github.com/intence/sepp/blob/master/img/sepp_small.png)
 
 ## Goals

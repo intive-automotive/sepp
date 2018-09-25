@@ -26,7 +26,7 @@ Read the SEPP wiki, if you want to see more about architecture and development w
 * sensors: 8 x ultra sonic, rgb camera, 3D camera (kinect style), gyroscope, radar, gps dongle, lidar [planned]
 * actuators: thrust servo, steering servo, red flashlight, buzzer
 * infrastructure: ethernet shields for arduino, ethernet switch, NiMh accu pack, usb hubs, power bank (to power arduinos an jetson tx1)
-* car body: bumpers, constructed aluminium frame, constructed 3D printed parts (https://www.thingiverse.com/thing:3105985), plenty of tape, cable ties, jumper cable and solder :)
+* car body: bumpers, constructed aluminium frame designed and made by Andreas N. aka G-Shocker (thanks for that!), constructed 3D printed parts (https://www.thingiverse.com/thing:3105985), plenty of tape, cable ties, jumper cable and solder :)
 
 ## Skills of sepp today
 * jetson tx1 up and running on ubuntu Xenial

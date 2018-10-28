@@ -26,7 +26,7 @@ Read the SEPP wiki, if you want to see more about architecture and development w
 * sensors: 8 x ultra sonic, rgb camera, 3D camera (kinect style), gyroscope, radar, gps dongle, lidar [planned]
 * actuators: thrust servo, steering servo, red flashlight, buzzer
 * infrastructure: ethernet shields for arduino, ethernet switch, NiMh accu pack, usb hubs, power bank (to power arduinos an jetson tx1)
-* car body: bumpers, constructed aluminium frame, constructed 3D printed parts (https://www.thingiverse.com/thing:3105985), plenty of tape, cable ties, jumper cable and solder :)
+* car body: bumpers, constructed aluminium frame designed and made by Andreas N. aka G-Shocker (thanks for that!), constructed 3D printed parts (https://www.thingiverse.com/thing:3105985), plenty of tape, cable ties, jumper cable and solder :)
 
 ## Skills of sepp today
 * jetson tx1 up and running on ubuntu Xenial
@@ -36,7 +36,7 @@ Read the SEPP wiki, if you want to see more about architecture and development w
 * thrust and steering servos are controlled by actuator board (arduino) over ethernet messages sent by a ROS node on jetson tx1
 * ROS can be run in a distributed setup, so ROS nodes on a remote PC can register on the ROS core on sepp´s jetson tx1
   * debugging and logging of ros messages is possible on a remote machine
-  * visualizations of the camera streams and input and output signals is possible on a remote machine
+  * visualizations of the camera streams and input and output signals are possible on a remote machine
 * teleoperation is implemented in a simple manner
   * video streams of rgb camera (backwards) and 3D camera (to the front) ist sent to ROS core on jetson tx1 over Wifi
   * a ROS node which reads joystick input on a remote pc sends steering information to actuator board which controls the servos

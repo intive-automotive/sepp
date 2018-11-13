@@ -23,7 +23,7 @@ Read the SEPP wiki, if you want to see more about architecture and development w
 * [ros](http://www.ros.org/) - Robot Operating System (ROS)
 * [OpenCV](https://opencv.org/) - Open Source Computer Vision Library
 * [TensorFlow](https://www.tensorflow.org/) - open source machine learning framework [planned]
-* sensors: 8 x ultra sonic, rgb camera, 3D camera (kinect style), gyroscope, radar, gps dongle, lidar [planned]
+* sensors: 8 x ultra sonic, rgb camera, 3D camera (kinect style), gyroscope, radar, gps dongle, 2D 360 degrees LiDAR
 * actuators: thrust servo, steering servo, red flashlight, buzzer
 * infrastructure: ethernet shields for arduino, ethernet switch, NiMh accu pack, usb hubs, power bank (to power arduinos an jetson tx1)
 * car body: bumpers, constructed aluminium frame designed and made by Andreas N. aka G-Shocker (thanks for that!), constructed 3D printed parts (https://www.thingiverse.com/thing:3105985), plenty of tape, cable ties, jumper cable and solder :)

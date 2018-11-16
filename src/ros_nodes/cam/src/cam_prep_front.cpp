@@ -63,7 +63,7 @@ public:
       : it_(nh_)
   {
     // Subscrive to input video feed and publish output video feed
-    image_sub_ = it_.subscribe("/cameraFront/image_raw", 1,
+    image_sub_ = it_.subscribe("/camera/rgb/image_rect_color", 1,
                                &CameraPreprocessingFront::imageCb, this);
     image_pub_ = it_.advertise("/cam_prep_front/output_video", 1);
   }

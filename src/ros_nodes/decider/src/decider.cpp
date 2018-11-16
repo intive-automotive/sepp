@@ -53,6 +53,13 @@ ros::Subscriber ermergancyBreak_sub;
 #define STEER_MAP_OUTPUT_MIN 0
 #define STEER_MAP_OUTPUT_MAX 2000
 
+#define SHIFT_DOWN_DEFAULT_VALUE 5
+#define SHIFT_UP_DEFAULT_VALUE 4
+
+#define THRUST_AXIS_DEFAULT_VALUE 2
+#define BREAK_AXIS_DEFAULT_VALUE 3
+#define STEER_AXIS_DEFAULT_VALUE 0
+
 enum directions
 {
   UNKNOWN,
@@ -73,7 +80,7 @@ long map(long x, long in_min, long in_max, long out_min, long out_max)
 directions evaluateDirection(int32_t forwardButton, int32_t reverseButton, directions currentDirection, float breakValue)
 {
   directions evaluatedDirection = currentDirection;
-  if (0.8 >= breakValue)
+  if (breakValue > 0.8)
   {
     evaluatedDirection = BREAK_DIRECTION;
   }
@@ -94,20 +101,20 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr &msg)
   // thrust
   std_msgs::Int16 int16_msg_decided_thrust;
 
-  int16_msg_decided_thrust.data = map((-1 * msg->axes[1] * 100000), TRUST_MAP_INPUT_MIN, TRUST_MAP_INPUT_MAX, TRUST_MAP_OUTPUT_MIN, TRUST_MAP_OUTPUT_MAX);
+  int16_msg_decided_thrust.data = map((msg->axes[THRUST_AXIS_DEFAULT_VALUE] * 100000), TRUST_MAP_INPUT_MIN, TRUST_MAP_INPUT_MAX, TRUST_MAP_OUTPUT_MIN, TRUST_MAP_OUTPUT_MAX);
 
   decided_thrust_pub.publish(int16_msg_decided_thrust);
 
   //steer
   std_msgs::Int16 int16_msg_decided_steer;
 
-  int16_msg_decided_steer.data = map(msg->axes[0] * 100000, STEER_MAP_INPUT_MIN, STEER_MAP_INPUT_MAX, STEER_MAP_OUTPUT_MIN, STEER_MAP_OUTPUT_MAX);
+  int16_msg_decided_steer.data = map(msg->axes[STEER_AXIS_DEFAULT_VALUE] * 100000, STEER_MAP_INPUT_MIN, STEER_MAP_INPUT_MAX, STEER_MAP_OUTPUT_MIN, STEER_MAP_OUTPUT_MAX);
 
   decided_steer_pub.publish(int16_msg_decided_steer);
 
   //direction
   std_msgs::Int16 int16_msg_decided_direction;
-  direction = evaluateDirection(msg->buttons[4], msg->buttons[5], direction, msg->axes[2]);
+  direction = evaluateDirection(msg->buttons[SHIFT_UP_DEFAULT_VALUE], msg->buttons[SHIFT_DOWN_DEFAULT_VALUE], direction, msg->axes[BREAK_AXIS_DEFAULT_VALUE]);
   int16_msg_decided_direction.data = direction;
 
   decided_direction_pub.publish(int16_msg_decided_direction);

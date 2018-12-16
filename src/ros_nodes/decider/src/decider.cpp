@@ -53,12 +53,14 @@ ros::Subscriber ermergancyBreak_sub;
 #define STEER_MAP_OUTPUT_MIN 0
 #define STEER_MAP_OUTPUT_MAX 2000
 
-#define SHIFT_DOWN_DEFAULT_VALUE 5
-#define SHIFT_UP_DEFAULT_VALUE 4
+#define SHIFT_DOWN_DEFAULT_VALUE 2 // G27 5
+#define SHIFT_UP_DEFAULT_VALUE 0 // G27 4
 
-#define THRUST_AXIS_DEFAULT_VALUE 2
-#define BREAK_AXIS_DEFAULT_VALUE 3
+#define THRUST_AXIS_DEFAULT_VALUE 1 // G27 2
+#define BREAK_AXIS_DEFAULT_VALUE 2 // G27 3
 #define STEER_AXIS_DEFAULT_VALUE 0
+#define BREAK_AXIS_DEFAULT_FACTOR -1
+#define THRUST_AXIS_DEFAULT_FACTOR -1
 
 enum directions
 {
@@ -101,7 +103,7 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr &msg)
   // thrust
   std_msgs::Int16 int16_msg_decided_thrust;
 
-  int16_msg_decided_thrust.data = map((msg->axes[THRUST_AXIS_DEFAULT_VALUE] * 100000), TRUST_MAP_INPUT_MIN, TRUST_MAP_INPUT_MAX, TRUST_MAP_OUTPUT_MIN, TRUST_MAP_OUTPUT_MAX);
+  int16_msg_decided_thrust.data = map((msg->axes[THRUST_AXIS_DEFAULT_VALUE] * 100000 * THRUST_AXIS_DEFAULT_FACTOR), TRUST_MAP_INPUT_MIN, TRUST_MAP_INPUT_MAX, TRUST_MAP_OUTPUT_MIN, TRUST_MAP_OUTPUT_MAX);
 
   decided_thrust_pub.publish(int16_msg_decided_thrust);
 
@@ -114,7 +116,7 @@ void joyCallback(const sensor_msgs::Joy::ConstPtr &msg)
 
   //direction
   std_msgs::Int16 int16_msg_decided_direction;
-  direction = evaluateDirection(msg->buttons[SHIFT_UP_DEFAULT_VALUE], msg->buttons[SHIFT_DOWN_DEFAULT_VALUE], direction, msg->axes[BREAK_AXIS_DEFAULT_VALUE]);
+  direction = evaluateDirection(msg->buttons[SHIFT_UP_DEFAULT_VALUE], msg->buttons[SHIFT_DOWN_DEFAULT_VALUE], direction, msg->axes[BREAK_AXIS_DEFAULT_VALUE] * BREAK_AXIS_DEFAULT_FACTOR);
   int16_msg_decided_direction.data = direction;
 
   decided_direction_pub.publish(int16_msg_decided_direction);
@@ -145,10 +147,10 @@ int main(int argc, char **argv)
 
   while (ros::ok())
   {
-    if (true == emergancyBreakActive)
-    {
-      direction = BREAK_DIRECTION;
-    }
+    // if (true == emergancyBreakActive)
+    // {
+    //   direction = BREAK_DIRECTION;
+    // }
     ros::spin();
   }
   return 0;
